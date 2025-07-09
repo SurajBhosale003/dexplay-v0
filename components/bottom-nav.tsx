@@ -1,7 +1,7 @@
-"use client"
+'use client'
 
-import { motion } from "framer-motion"
-import { Home, MapPin, Zap, GraduationCap, User } from "lucide-react"
+import { motion } from 'framer-motion'
+import { Home, MapPin, Zap, GraduationCap, User } from 'lucide-react'
 
 interface BottomNavProps {
   activeTab: string
@@ -9,17 +9,17 @@ interface BottomNavProps {
 }
 
 const navItems = [
-  { id: "home", icon: Home, label: "Home" },
-  { id: "court", icon: MapPin, label: "Courts" },
-  { id: "match", icon: Zap, label: "Match" },
-  { id: "classes", icon: GraduationCap, label: "Classes" },
-  { id: "profile", icon: User, label: "Profile" },
+  { id: 'home', icon: Home },
+  { id: 'court', icon: MapPin },
+  { id: 'match', icon: Zap },
+  { id: 'classes', icon: GraduationCap },
+  { id: 'profile', icon: User },
 ]
 
 export default function BottomNav({ activeTab, onTabChange }: BottomNavProps) {
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200">
-      <div className="flex justify-around items-center py-2">
+    <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50">
+      <div className="flex items-center justify-between w-[90vw] max-w-md mx-auto px-4 py-3 bg-white/80 backdrop-blur-md rounded-full shadow-md border border-gray-200">
         {navItems.map((item) => {
           const Icon = item.icon
           const isActive = activeTab === item.id
@@ -27,15 +27,20 @@ export default function BottomNav({ activeTab, onTabChange }: BottomNavProps) {
           return (
             <motion.button
               key={item.id}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileTap={{ scale: 0.9 }}
               onClick={() => onTabChange(item.id)}
-              className={`relative p-3 rounded-xl transition-all duration-200 ${
-                isActive ? "bg-black" : "hover:bg-gray-100"
-              }`}
+              className="relative flex items-center justify-center w-12 h-12"
             >
-              <Icon className={`w-6 h-6 ${isActive ? "text-white" : "text-gray-600"}`} />
-              <span className={`text-xs mt-1 block ${isActive ? "text-white" : "text-gray-600"}`}>{item.label}</span>
+              <div
+                className={`absolute w-full h-full rounded-full transition-all duration-300 pointer-events-none ${
+                  isActive ? 'shadow-[0_0_12px_4px_#D7EE34]' : ''
+                }`}
+              ></div>
+              <Icon
+                className={`w-6 h-6 z-10 transition duration-300 ${
+                  isActive ? 'text-[#D7EE34]' : 'text-gray-600'
+                }`}
+              />
             </motion.button>
           )
         })}

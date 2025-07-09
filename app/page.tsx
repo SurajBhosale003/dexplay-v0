@@ -14,7 +14,7 @@ export default function DexPlayApp() {
     if (currentScreen === "splash") {
       const timer = setTimeout(() => {
         setCurrentScreen("signup")
-      }, 3000)
+      }, 60000)
       return () => clearTimeout(timer)
     }
   }, [currentScreen])
