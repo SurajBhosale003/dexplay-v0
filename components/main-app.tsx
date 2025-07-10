@@ -37,9 +37,9 @@ export default function MainApp({ user }: MainAppProps) {
     <div className="min-h-screen bg-gray-50 pb-20">
       <motion.div
         key={activeTab}
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.9 }}
+        transition={{ duration: 1.3 }}
         className="min-h-screen"
       >
         {renderScreen()}

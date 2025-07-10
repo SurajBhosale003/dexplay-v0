@@ -16,37 +16,37 @@ const sports = [
   {
     id: "football",
     name: "Football",
-    image: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752060630/dexciss%20site/dexplay/pexels-pixabay-46798_hf7q6x.jpg",
+    image: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752067675/dexciss%20site/dexplay/optimal/pexels-pixabay-46798_1_omyner.jpg",
     participants: "2.1M players",
   },
   {
     id: "basketball",
     name: "Basketball",
-    image: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752060712/dexciss%20site/dexplay/pexels-markusspiske-1752757_pgkux2.jpg",
+    image: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752067723/dexciss%20site/dexplay/optimal/pexels-markusspiske-1752757_1_rhbltt.jpg",
     participants: "1.8M players",
   },
   {
     id: "tennis",
     name: "Tennis",
-    image: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752060790/dexciss%20site/dexplay/pexels-pixabay-209977_h7ucwg.jpg",
+    image: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752067671/dexciss%20site/dexplay/optimal/pexels-pixabay-209977_1_cxaacu.jpg",
     participants: "950K players",
   },
   {
     id: "cricket",
     name: "Cricket",
-    image: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752060851/dexciss%20site/dexplay/pexels-case-originals-3657154_gqkiqg.jpg",
+    image: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752067729/dexciss%20site/dexplay/optimal/pexels-case-originals-3657154_1_cv7jvj.jpg",
     participants: "1.2M players",
   },
   {
     id: "badminton",
     name: "Badminton",
-    image: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752061048/dexciss%20site/dexplay/pexels-vladvictoria-2202685_tcjqfc.jpg",
+    image: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752067735/dexciss%20site/dexplay/optimal/pexels-vladvictoria-2202685_1_ydqoy4.jpg",
     participants: "680K players",
   },
   {
     id: "volleyball",
     name: "Volleyball",
-    image: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752061068/dexciss%20site/dexplay/pexels-pavel-danilyuk-6203514_rlic8s.jpg",
+    image: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752067714/dexciss%20site/dexplay/optimal/pexels-pavel-danilyuk-6203514_1_lqgfrd.jpg",
     participants: "520K players",
   },
 ]
@@ -56,9 +56,9 @@ export default function SignupFlow({ onComplete }: SignupFlowProps) {
   const [formData, setFormData] = useState({
     name: "",
     age: "",
-    phone: '',
-    gender: '',
-    level: '',
+    phone: "",
+    gender: "",
+    level: "",
     interests: [] as string[],
   })
   const [otpCode, setOtpCode] = useState(["", "", "", ""])
@@ -319,7 +319,6 @@ export default function SignupFlow({ onComplete }: SignupFlowProps) {
                 className="w-full h-14 bg-black hover:bg-gray-800 text-white font-semibold rounded-xl text-lg"
               >
                 Continue
-                <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
             </motion.div>
           )}
