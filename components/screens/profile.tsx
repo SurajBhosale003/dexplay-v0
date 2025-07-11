@@ -182,15 +182,15 @@ export default function Profile({ user }: ProfileProps) {
           <div className="px-6 pb-6 relative">
             <div className="flex flex-col md:flex-row items-start md:items-center gap-6 -mt-12">
               <div className="relative">
-                <div className="w-24 h-24 rounded-full border-4 border-white bg-gray-100 flex items-center justify-center overflow-hidden shadow-md">
+                <div className="relative w-24 h-24 rounded-full border-4 border-white bg-gray-100 flex items-center justify-center overflow-hidden shadow-md">
                   <Image
                     src="https://thumbs.dreamstime.com/b/happy-old-man-29332682.jpg"
                     alt="Profile"
-                    width={96}
-                    height={96}
+                    fill
                     className="object-cover"
                   />
                 </div>
+
                 <Button
                   size="icon"
                   className="absolute -bottom-2 -right-2 w-9 h-9 rounded-full shadow-md"
@@ -500,15 +500,15 @@ export default function Profile({ user }: ProfileProps) {
                   >
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-xl overflow-hidden bg-gray-100">
-                          <Image
-                            src={match.image}
-                            alt={match.sport}
-                            width={48}
-                            height={48}
-                            className="object-cover"
-                          />
-                        </div>
+                        <div className="relative w-12 h-12 rounded-xl overflow-hidden bg-gray-100">
+  <Image
+    src={match.image}
+    alt={match.sport}
+    fill
+    className="object-cover"
+  />
+</div>
+
                         <div>
                           <div className="font-semibold" style={{ color: theme.text }}>
                             {match.sport}
