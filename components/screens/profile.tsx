@@ -23,7 +23,7 @@ const achievements = [
     id: 1,
     name: "First Victory",
     description: "Won your first match",
-    image: "/placeholder.svg?height=60&width=60",
+    image: "https://static.thenounproject.com/png/492226-200.png",
     earned: true,
     date: "Feb 10, 2024",
     xp: 50
@@ -32,7 +32,7 @@ const achievements = [
     id: 2,
     name: "Team Player",
     description: "Played 10 team matches",
-    image: "/placeholder.svg?height=60&width=60",
+    image: "https://www.shutterstock.com/shutterstock/photos/394453261/display_1500/stock-vector-team-work-icon-suitable-for-info-graphics-websites-and-print-media-and-interfaces-line-vector-394453261.jpg",
     earned: true,
     date: "Feb 8, 2024",
     xp: 100
@@ -41,7 +41,7 @@ const achievements = [
     id: 3,
     name: "Hat Trick Hero",
     description: "Score 3 goals in one match",
-    image: "/placeholder.svg?height=60&width=60",
+    image: "https://www.shutterstock.com/image-vector/illustration-victorious-soccer-team-celebrating-260nw-2481979411.jpg",
     earned: false,
     progress: 2,
     total: 3,
@@ -51,7 +51,7 @@ const achievements = [
     id: 4,
     name: "Perfect Week",
     description: "Win all matches in a week",
-    image: "/placeholder.svg?height=60&width=60",
+    image: "https://img.pikbest.com/illustration/20241226/achievement-logo_11301971.jpg!sw800",
     earned: false,
     progress: 3,
     total: 7,
@@ -67,7 +67,7 @@ const recentMatches = [
     score: "3-2",
     date: "Feb 10, 2024",
     opponent: "Team Alpha",
-    image: "/placeholder.svg",
+    image: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752131764/dexciss%20site/dexplay/optimal/400/football_x400/pexels-pixabay-46798_x400_ovdjpx.jpg",
     stats: {
       goals: 2,
       assists: 1,
@@ -83,7 +83,7 @@ const recentMatches = [
     score: "45-52",
     date: "Feb 8, 2024",
     opponent: "Court Kings",
-    image: "/placeholder.svg",
+    image: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752131778/dexciss%20site/dexplay/optimal/400/basketball_x400/pexels-markusspiske-1752757_x400_svprp8.jpg",
     stats: {
       points: 18,
       rebounds: 7,
@@ -99,7 +99,7 @@ const recentMatches = [
     score: "6-4, 6-2",
     date: "Feb 5, 2024",
     opponent: "Mike Chen",
-    image: "/placeholder.svg",
+    image: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752131760/dexciss%20site/dexplay/optimal/400/tennis_x400/pexels-pixabay-209977_x400_rhisou.jpg",
     stats: {
       aces: 5,
       winners: 22,
@@ -184,7 +184,7 @@ export default function Profile({ user }: ProfileProps) {
               <div className="relative">
                 <div className="w-24 h-24 rounded-full border-4 border-white bg-gray-100 flex items-center justify-center overflow-hidden shadow-md">
                   <Image
-                    src="/placeholder.svg?height=96&width=96"
+                    src="https://thumbs.dreamstime.com/b/happy-old-man-29332682.jpg"
                     alt="Profile"
                     width={96}
                     height={96}
