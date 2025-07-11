@@ -241,3 +241,181 @@ export const courts = [
     sports: ["Tennis"],
   }
 ];
+
+export const sports = [
+  {
+    id: "football",
+    name: "Football",
+    image: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752067675/dexciss%20site/dexplay/optimal/pexels-pixabay-46798_1_omyner.jpg",
+    activeMatches: 24,
+    type: "Team",
+    players: "11v11",
+    popularity: "High"
+  },
+  {
+    id: "basketball",
+    name: "Basketball",
+    image: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752067723/dexciss%20site/dexplay/optimal/pexels-markusspiske-1752757_1_rhbltt.jpg",
+    activeMatches: 18,
+    type: "Team",
+    players: "5v5",
+    popularity: "High"
+  },
+  {
+    id: "tennis",
+    name: "Tennis",
+    image: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752067671/dexciss%20site/dexplay/optimal/pexels-pixabay-209977_1_cxaacu.jpg",
+    activeMatches: 12,
+    type: "Individual",
+    players: "1v1",
+    popularity: "Medium"
+  },
+  {
+    id: "cricket",
+    name: "Cricket",
+    image: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752067729/dexciss%20site/dexplay/optimal/pexels-case-originals-3657154_1_cv7jvj.jpg",
+    activeMatches: 15,
+    type: "Team",
+    players: "11v11",
+    popularity: "High"
+  },
+  {
+    id: "badminton",
+    name: "Badminton",
+    image: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752067735/dexciss%20site/dexplay/optimal/pexels-vladvictoria-2202685_1_ydqoy4.jpg",
+    activeMatches: 8,
+    type: "Individual/Doubles",
+    players: "1v1 or 2v2",
+    popularity: "Medium"
+  }
+]
+
+export const matches = [
+  {
+    id: 1,
+    sport: "football",
+    title: "5v5 Football Match",
+    location: "Victory Sports Complex",
+    time: "Today 6:00 PM",
+    players: "8/10",
+    level: "Intermediate",
+    image: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752067675/dexciss%20site/dexplay/optimal/pexels-pixabay-46798_1_omyner.jpg",
+    host: { 
+      name: "Alex Johnson", 
+      avatar: "https://randomuser.me/api/portraits/men/32.jpg",
+      rating: 4.8,
+      matchesHosted: 12
+    },
+    comments: 3,
+    status: "available",
+    price: "₹200 per person",
+    distance: "1.2 km away",
+    duration: "2 hours",
+    facilities: ["Showers", "Parking", "Cafeteria"]
+  },
+  {
+    id: 2,
+    sport: "basketball",
+    title: "3v3 Basketball Tournament",
+    location: "Downtown Courts",
+    time: "Tomorrow 7:30 PM",
+    players: "4/6",
+    level: "Beginner",
+    image: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752067723/dexciss%20site/dexplay/optimal/pexels-markusspiske-1752757_1_rhbltt.jpg",
+    host: { 
+      name: "Sarah Wilson", 
+      avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+      rating: 4.5,
+      matchesHosted: 8
+    },
+    comments: 1,
+    status: "available",
+    price: "₹150 per person",
+    distance: "2.5 km away",
+    duration: "1.5 hours",
+    facilities: ["Parking", "Water Cooler"]
+  },
+  {
+    id: 3,
+    sport: "tennis",
+    title: "Singles Tennis Match",
+    location: "Elite Tennis Club",
+    time: "Today 5:00 PM",
+    players: "1/2",
+    level: "Advanced",
+    image: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752067671/dexciss%20site/dexplay/optimal/pexels-pixabay-209977_1_cxaacu.jpg",
+    host: { 
+      name: "Mike Chen", 
+      avatar: "https://randomuser.me/api/portraits/men/22.jpg",
+      rating: 4.9,
+      matchesHosted: 15
+    },
+    comments: 0,
+    status: "joining",
+    price: "₹300 per person",
+    distance: "3.1 km away",
+    duration: "1 hour",
+    facilities: ["Club House", "Equipment Rental"]
+  },
+  {
+    id: 4,
+    sport: "cricket",
+    title: "Weekend Cricket Game",
+    location: "Greenfield Stadium",
+    time: "Sat 9:00 AM",
+    players: "14/22",
+    level: "Casual",
+    image: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752067729/dexciss%20site/dexplay/optimal/pexels-case-originals-3657154_1_cv7jvj.jpg",
+    host: { 
+      name: "Raj Patel", 
+      avatar: "https://randomuser.me/api/portraits/men/45.jpg",
+      rating: 4.7,
+      matchesHosted: 6
+    },
+    comments: 2,
+    status: "available",
+    price: "₹250 per person",
+    distance: "4.2 km away",
+    duration: "4 hours",
+    facilities: ["Pavilion", "Sight Screens"]
+  }
+]
+
+export const pastMatches = [
+  {
+    id: 1,
+    sport: "football",
+    opponent: "Team Alpha",
+    score: "3-2",
+    result: "won",
+    date: "Feb 10, 2024",
+    image: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752067675/dexciss%20site/dexplay/optimal/pexels-pixabay-46798_1_omyner.jpg",
+    performance: "8.5/10",
+    highlights: ["2 goals", "1 assist", "90% pass accuracy"],
+    venue: "Victory Sports Complex"
+  },
+  {
+    id: 2,
+    sport: "basketball",
+    opponent: "Court Kings",
+    score: "45-52",
+    result: "lost",
+    date: "Feb 8, 2024",
+    image: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752067723/dexciss%20site/dexplay/optimal/pexels-markusspiske-1752757_1_rhbltt.jpg",
+    performance: "7.2/10",
+    highlights: ["12 points", "5 rebounds", "3 assists"],
+    venue: "Downtown Courts"
+  },
+  {
+    id: 3,
+    sport: "tennis",
+    opponent: "David Miller",
+    score: "6-4, 3-6, 7-5",
+    result: "won",
+    date: "Feb 5, 2024",
+    image: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752067671/dexciss%20site/dexplay/optimal/pexels-pixabay-209977_1_cxaacu.jpg",
+    performance: "9.1/10",
+    highlights: ["8 aces", "72% first serve", "15 winners"],
+    venue: "Elite Tennis Club"
+  }
+]

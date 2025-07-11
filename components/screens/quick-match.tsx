@@ -1,60 +1,47 @@
 "use client"
 
 import { useState } from "react"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Users, Clock, MapPin, MessageCircle, Filter, Search } from "lucide-react"
+import { Users, Clock, MapPin, MessageCircle, Filter, Search, CheckCircle2, UserPlus, Star, Trophy } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import Image from "next/image"
+
+const THEME_COLOR = '#D7EE34'
 
 const sports = [
   {
     id: "football",
     name: "Football",
-    image: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752067675/dexciss%20site/dexplay/optimal/pexels-pixabay-46798_1_omyner.jpg",
+    image: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752131774/dexciss%20site/dexplay/optimal/400/football_x400/pexels-yogendras31-1375148_x400_ydhxik.jpg",
     activeMatches: 24,
-    type: "Team",
-    players: "11v11",
-    popularity: "High"
   },
   {
     id: "basketball",
     name: "Basketball",
     image: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752067723/dexciss%20site/dexplay/optimal/pexels-markusspiske-1752757_1_rhbltt.jpg",
     activeMatches: 18,
-    type: "Team",
-    players: "5v5",
-    popularity: "High"
   },
   {
     id: "tennis",
     name: "Tennis",
     image: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752067671/dexciss%20site/dexplay/optimal/pexels-pixabay-209977_1_cxaacu.jpg",
     activeMatches: 12,
-    type: "Individual",
-    players: "1v1",
-    popularity: "Medium"
-  },
-  {
+  },{
     id: "cricket",
     name: "Cricket",
     image: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752067729/dexciss%20site/dexplay/optimal/pexels-case-originals-3657154_1_cv7jvj.jpg",
     activeMatches: 15,
-    type: "Team",
-    players: "11v11",
-    popularity: "High"
+    
   },
   {
     id: "badminton",
     name: "Badminton",
     image: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752067735/dexciss%20site/dexplay/optimal/pexels-vladvictoria-2202685_1_ydqoy4.jpg",
     activeMatches: 8,
-    type: "Individual/Doubles",
-    players: "1v1 or 2v2",
-    popularity: "Medium"
   }
 ]
 
@@ -68,18 +55,22 @@ const matches = [
     players: "8/10",
     level: "Intermediate",
     image: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752067675/dexciss%20site/dexplay/optimal/pexels-pixabay-46798_1_omyner.jpg",
-    host: { 
-      name: "Alex Johnson", 
-      avatar: "https://randomuser.me/api/portraits/men/32.jpg",
-      rating: 4.8,
-      matchesHosted: 12
+    host: {
+      name: "Aarav Mehta",
+      avatar: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752217764/People%20Profile/depositphotos_223166560-stock-photo-young-handsome-indian-man-against_zv9wum.webp",
+      rating: 4.8
     },
     comments: 3,
     status: "available",
     price: "₹200 per person",
     distance: "1.2 km away",
-    duration: "2 hours",
-    facilities: ["Showers", "Parking", "Cafeteria"]
+    slots: [
+      { status: "filled", player: { name: "Aarav", level: "Intermediate" } },
+      { status: "filled", player: { name: "Riya", level: "Advanced" } },
+      { status: "filled" },
+      { status: "available" },
+      { status: "available" }
+    ]
   },
   {
     id: 2,
@@ -90,64 +81,249 @@ const matches = [
     players: "4/6",
     level: "Beginner",
     image: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752067723/dexciss%20site/dexplay/optimal/pexels-markusspiske-1752757_1_rhbltt.jpg",
-    host: { 
-      name: "Sarah Wilson", 
-      avatar: "https://randomuser.me/api/portraits/women/44.jpg",
-      rating: 4.5,
-      matchesHosted: 8
+    host: {
+      name: "Ananya Rao",
+      avatar: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752217771/People%20Profile/images_1_myv2ze.jpg",
+      rating: 4.5
     },
     comments: 1,
     status: "available",
     price: "₹150 per person",
     distance: "2.5 km away",
-    duration: "1.5 hours",
-    facilities: ["Parking", "Water Cooler"]
+    slots: [
+      { status: "available" },
+      { status: "available" },
+      { status: "available" }
+    ]
   },
   {
     id: 3,
     sport: "tennis",
-    title: "Singles Tennis Match",
+    title: "Singles Tennis",
     location: "Elite Tennis Club",
     time: "Today 5:00 PM",
     players: "1/2",
     level: "Advanced",
     image: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752067671/dexciss%20site/dexplay/optimal/pexels-pixabay-209977_1_cxaacu.jpg",
-    host: { 
-      name: "Mike Chen", 
-      avatar: "https://randomuser.me/api/portraits/men/22.jpg",
-      rating: 4.9,
-      matchesHosted: 15
+    host: {
+      name: "Mehul Sinha",
+      avatar: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752217658/People%20Profile/images_veqgag.jpg",
+      rating: 4.9
     },
     comments: 0,
     status: "joining",
     price: "₹300 per person",
     distance: "3.1 km away",
-    duration: "1 hour",
-    facilities: ["Club House", "Equipment Rental"]
+    slots: [
+      { status: "filled", player: { name: "Mehul", level: "Advanced" } },
+      { status: "available" }
+    ]
   },
   {
     id: 4,
     sport: "cricket",
-    title: "Weekend Cricket Game",
-    location: "Greenfield Stadium",
-    time: "Sat 9:00 AM",
-    players: "14/22",
-    level: "Casual",
+    title: "Gully Cricket Knockout",
+    location: "Greenfield Arena",
+    time: "Today 4:00 PM",
+    players: "10/12",
+    level: "Intermediate",
     image: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752067729/dexciss%20site/dexplay/optimal/pexels-case-originals-3657154_1_cv7jvj.jpg",
-    host: { 
-      name: "Raj Patel", 
-      avatar: "https://randomuser.me/api/portraits/men/45.jpg",
-      rating: 4.7,
-      matchesHosted: 6
+    host: {
+      name: "Ritika Singh",
+      avatar: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752217768/People%20Profile/0bdbc7e1f21b705d25b7f81873810086_wurlmo.jpg",
+      rating: 4.7
+    },
+    comments: 4,
+    status: "available",
+    price: "₹100 per person",
+    distance: "0.8 km away",
+    slots: [
+      { status: "filled", player: { name: "Ritika", level: "Intermediate" } },
+      { status: "filled", player: { name: "Neha", level: "Beginner" } },
+      { status: "filled" },
+      { status: "available" },
+      { status: "available" }
+    ]
+  },
+  {
+    id: 5,
+    sport: "volleyball",
+    title: "Beach Volleyball",
+    location: "Marine Drive Sand Courts",
+    time: "Tomorrow 8:00 AM",
+    players: "6/8",
+    level: "Beginner",
+    image: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752067752/dexciss%20site/dexplay/optimal/pexels-jim-de-ramos-1263349_1_fnfz1k.jpg",
+    host: {
+      name: "Karthik Das",
+      avatar: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752217664/People%20Profile/57dbffd654e3580d51e60e451c5850f9_hhipp8.jpg",
+      rating: 4.6
     },
     comments: 2,
     status: "available",
+    price: "₹180 per person",
+    distance: "5.2 km away",
+    slots: [
+      { status: "filled", player: { name: "Karthik", level: "Beginner" } },
+      { status: "available" },
+      { status: "available" },
+      { status: "available" }
+    ]
+  },
+  {
+    id: 6,
+    sport: "badminton",
+    title: "Doubles Badminton Match",
+    location: "Smash Arena",
+    time: "Today 9:00 PM",
+    players: "2/4",
+    level: "Intermediate",
+    image: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752067735/dexciss%20site/dexplay/optimal/pexels-vladvictoria-2202685_1_ydqoy4.jpg",
+    host: {
+      name: "Priya Nair",
+      avatar: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752217662/People%20Profile/pm0476_w0_dfthen.avif",
+      rating: 4.4
+    },
+    comments: 2,
+    status: "available",
+    price: "₹220 per person",
+    distance: "2.1 km away",
+    slots: [
+      { status: "filled", player: { name: "Priya", level: "Intermediate" } },
+      { status: "available" },
+      { status: "available" }
+    ]
+  },{
+    id: 7,
+    sport: "football",
+    title: "Super Sunday Match",
+    location: "Champions Arena",
+    time: "Sunday 4:00 PM",
+    players: "9/10",
+    level: "Beginner",
+    image: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752131772/dexciss%20site/dexplay/optimal/400/football_x400/pexels-rethaferguson-3621104_x400_fwav4h.jpg",
+    host: {
+      name: "Priya Nair",
+      avatar: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752217662/People%20Profile/pm0476_w0_dfthen.avif",
+      rating: 4.5
+    },
+    comments: 4,
+    status: "available",
+    price: "₹190 per person",
+    distance: "2.2 km away",
+    slots: [
+      { status: "filled", player: { name: "Priya", level: "Beginner" } },
+      { status: "filled", player: { name: "Manish", level: "Beginner" } },
+      { status: "available" },
+      { status: "available" },
+      { status: "available" }
+    ]
+  },{
+    id: 8,
+    sport: "football",
+    title: "Weekend Football Bash",
+    location: "Skyline Arena",
+    time: "Tomorrow 5:00 PM",
+    players: "6/10",
+    level: "Beginner",
+    image: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752131766/dexciss%20site/dexplay/optimal/400/football_x400/pexels-yogendras31-3361471_x400_y1b45n.jpg",
+    host: {
+      name: "Neha Sharma",
+      avatar: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752217771/People%20Profile/images_1_myv2ze.jpg",
+      rating: 4.6
+    },
+    comments: 1,
+    status: "available",
+    price: "₹150 per person",
+    distance: "2.0 km away",
+    slots: [
+      { status: "filled", player: { name: "Neha", level: "Beginner" } },
+      { status: "filled" },
+      { status: "available" },
+      { status: "available" },
+      { status: "available" }
+    ]
+  },
+  {
+    id: 9,
+    sport: "football",
+    title: "Morning Turf Battle",
+    location: "Elite Ground 2",
+    time: "Today 7:00 AM",
+    players: "10/10",
+    level: "Advanced",
+    image: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752131770/dexciss%20site/dexplay/optimal/400/football_x400/pexels-bohlemedia-1884576_x400_kwsrjq.jpg",
+    host: {
+      name: "Ritika Singh",
+      avatar: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752217768/People%20Profile/0bdbc7e1f21b705d25b7f81873810086_wurlmo.jpg",
+      rating: 4.9
+    },
+    comments: 5,
+    status: "joining",
     price: "₹250 per person",
-    distance: "4.2 km away",
-    duration: "4 hours",
-    facilities: ["Pavilion", "Sight Screens"]
+    distance: "0.9 km away",
+    slots: [
+      { status: "filled", player: { name: "Ritika", level: "Advanced" } },
+      { status: "filled", player: { name: "Kiran", level: "Intermediate" } },
+      { status: "filled" },
+      { status: "filled" },
+      { status: "filled" }
+    ]
+  },
+  {
+    id: 10,
+    sport: "football",
+    title: "Friday Night Lights",
+    location: "Downtown Mini Ground",
+    time: "Friday 8:30 PM",
+    players: "7/10",
+    level: "Intermediate",
+    image: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752067675/dexciss%20site/dexplay/optimal/pexels-pixabay-46798_1_omyner.jpg",
+    host: {
+      name: "Karthik Das",
+      avatar: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752217664/People%20Profile/57dbffd654e3580d51e60e451c5850f9_hhipp8.jpg",
+      rating: 4.7
+    },
+    comments: 2,
+    status: "available",
+    price: "₹180 per person",
+    distance: "3.4 km away",
+    slots: [
+      { status: "filled", player: { name: "Karthik", level: "Intermediate" } },
+      { status: "available" },
+      { status: "available" },
+      { status: "available" },
+      { status: "available" }
+    ]
+  },
+  {
+    id: 11,
+    sport: "football",
+    title: "Late Night Showdown",
+    location: "Arena 9",
+    time: "Tonight 10:30 PM",
+    players: "5/10",
+    level: "Intermediate",
+    image: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752067675/dexciss%20site/dexplay/optimal/pexels-pixabay-46798_1_omyner.jpg",
+    host: {
+      name: "Mehul Sinha",
+      avatar: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752217658/People%20Profile/images_veqgag.jpg",
+      rating: 4.4
+    },
+    comments: 0,
+    status: "available",
+    price: "₹160 per person",
+    distance: "1.5 km away",
+    slots: [
+      { status: "filled", player: { name: "Mehul", level: "Intermediate" } },
+      { status: "filled" },
+      { status: "available" },
+      { status: "available" },
+      { status: "available" }
+    ]
   }
-]
+];
+
 
 const pastMatches = [
   {
@@ -158,9 +334,7 @@ const pastMatches = [
     result: "won",
     date: "Feb 10, 2024",
     image: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752067675/dexciss%20site/dexplay/optimal/pexels-pixabay-46798_1_omyner.jpg",
-    performance: "8.5/10",
-    highlights: ["2 goals", "1 assist", "90% pass accuracy"],
-    venue: "Victory Sports Complex"
+    performance: "8.5/10"
   },
   {
     id: 2,
@@ -170,21 +344,7 @@ const pastMatches = [
     result: "lost",
     date: "Feb 8, 2024",
     image: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752067723/dexciss%20site/dexplay/optimal/pexels-markusspiske-1752757_1_rhbltt.jpg",
-    performance: "7.2/10",
-    highlights: ["12 points", "5 rebounds", "3 assists"],
-    venue: "Downtown Courts"
-  },
-  {
-    id: 3,
-    sport: "tennis",
-    opponent: "David Miller",
-    score: "6-4, 3-6, 7-5",
-    result: "won",
-    date: "Feb 5, 2024",
-    image: "https://res.cloudinary.com/de6u5kbiw/image/upload/v1752067671/dexciss%20site/dexplay/optimal/pexels-pixabay-209977_1_cxaacu.jpg",
-    performance: "9.1/10",
-    highlights: ["8 aces", "72% first serve", "15 winners"],
-    venue: "Elite Tennis Club"
+    performance: "7.2/10"
   }
 ]
 
@@ -192,6 +352,27 @@ export default function QuickMatch() {
   const [selectedSport, setSelectedSport] = useState("football")
   const [matchType, setMatchType] = useState("5v5")
   const [searchQuery, setSearchQuery] = useState("")
+  const [showConfirmation, setShowConfirmation] = useState(false)
+  const [selectedMatch, setSelectedMatch] = useState<any>(null)
+  const [selectedSlot, setSelectedSlot] = useState<number | null>(null)
+
+  const filteredMatches = matches.filter(match => 
+    match.sport === selectedSport && 
+    match.title.toLowerCase().includes(searchQuery.toLowerCase())
+  )
+
+  const handleSlotClick = (match: any, slotIndex: number) => {
+    if (match.slots[slotIndex].status === "available") {
+      setSelectedMatch(match)
+      setSelectedSlot(slotIndex)
+      setShowConfirmation(true)
+    }
+  }
+
+  const confirmBooking = () => {
+    // In a real app, you would update the state or make an API call here
+    setShowConfirmation(false)
+  }
 
   return (
     <div className="bg-white min-h-screen">
@@ -210,74 +391,72 @@ export default function QuickMatch() {
               placeholder="Search matches, sports, locations..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 h-12 border-gray-200 focus:border-[#D7EE34]"
+              className="pl-10 h-12 border-gray-200 focus:border-[#D7EE34] focus:ring-[#D7EE34]"
             />
           </div>
-          <Button variant="outline" size="icon" className="h-12 w-12 border-gray-200 bg-transparent">
+          <Button variant="outline" size="icon" className="h-12 w-12 border-gray-200 bg-transparent hover:border-[#D7EE34]">
             <Filter className="w-5 h-5" />
           </Button>
         </div>
 
-<div className="flex gap-4 overflow-x-auto pb-4 px-1">
-  {sports.map((sport) => (
-    <motion.div
-      key={sport.id}
-      whileHover={{ scale: 1.03 }}
-      whileTap={{ scale: 0.98 }}
-      onClick={() => setSelectedSport(sport.id)}
-      className="flex-shrink-0 relative w-32 h-32 rounded-2xl overflow-hidden cursor-pointer"
-    >
-      {/* Background Image */}
-      <div className="absolute inset-0">
-        <Image
-          src={sport.image}
-          alt={sport.name}
-          fill
-          className="object-cover"
-          sizes="(max-width: 768px) 100vw, 33vw"
-        />
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-black/30"></div>
-      </div>
+        {/* Sport Selection */}
+        <div className="flex gap-4 overflow-x-auto pb-4 -mx-1">
+          {sports.map((sport) => (
+            <motion.div
+              key={sport.id}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => setSelectedSport(sport.id)}
+              className={`flex-shrink-0 relative w-32 h-32 rounded-2xl overflow-hidden cursor-pointer ${
+                selectedSport === sport.id ? 'ring-4 ring-[#D7EE34]' : ''
+              }`}
+            >
+              {/* Background Image */}
+              <div className="absolute inset-0">
+                <Image
+                  src={sport.image}
+                  alt={sport.name}
+                  fill
+                  className="object-cover"
+                  sizes="128px"
+                />
+                {/* Dark overlay */}
+                <div className="absolute inset-0 bg-black/30"></div>
+              </div>
 
-      {/* Active matches badge */}
-      <div className="absolute top-2 right-2 bg-black/80 text-[#D7EE34] text-xs font-bold px-2 py-1 rounded-full">
-        {sport.activeMatches} active
-      </div>
+              {/* Active matches badge */}
+              <div className="absolute top-2 right-2 bg-black/80 text-[#D7EE34] text-xs font-bold px-2 py-1 rounded-full">
+                {sport.activeMatches} active
+              </div>
 
-      {/* Glass effect title */}
-      <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80 to-transparent backdrop-blur-sm">
-        <div className="text-white font-semibold text-center text-xs">{sport.name}</div>
-      </div>
-
-      {/* Selection indicator */}
-      {selectedSport === sport.id && (
-        <div className="absolute inset-0 border-4 border-[#D7EE34] rounded-2xl pointer-events-none"></div>
-      )}
-    </motion.div>
-  ))}
-</div>
+              {/* Glass effect title */}
+              <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80 to-transparent backdrop-blur-sm">
+                <div className="text-white font-semibold text-center">{sport.name}</div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
 
       {/* Match Type Toggle */}
-<div className="px-6 py-4 bg-[#fff] border-b border-[#fff]/30">
-  <div className="flex gap-2">
-    {["2v2", "5v5", "11v11"].map((type) => (
-      <Button
-        key={type}
-        variant={matchType === type ? "default" : "outline"}
-        onClick={() => setMatchType(type)}
-        className={`rounded-xl transition-colors duration-200 ${
-          matchType === type
-            ? "bg-[#D7EE34] hover:bg-[#C6DF29] text-gray-900 border-[#D7EE34] shadow-sm"
-            : "border-[#D7EE34]/50 hover:border-[#D7EE34] bg-white/80 hover:bg-[#F8FAE5] text-gray-700"
-        }`}
-      >
-        {type}
-      </Button>
-    ))}
-  </div>
-</div>
+      <div className="px-6 py-4 bg-[#F8FAE5] border-b border-[#D7EE34]/30">
+        <div className="flex gap-2">
+          {["2v2", "5v5", "11v11"].map((type) => (
+            <Button
+              key={type}
+              variant={matchType === type ? "default" : "outline"}
+              onClick={() => setMatchType(type)}
+              className={`rounded-xl ${
+                matchType === type
+                  ? "bg-[#D7EE34] hover:bg-[#C6DF29] text-gray-900 border-[#D7EE34] shadow-sm"
+                  : "border-[#D7EE34]/50 hover:border-[#D7EE34] bg-white/80 hover:bg-[#F8FAE5] text-gray-700"
+              }`}
+            >
+              {type}
+            </Button>
+          ))}
+        </div>
+      </div>
 
       {/* Tabs */}
       <Tabs defaultValue="upcoming" className="flex-1">
@@ -305,98 +484,102 @@ export default function QuickMatch() {
         </div>
 
         <TabsContent value="upcoming" className="px-6 py-6 space-y-4">
-          {matches.map((match, index) => (
+          {filteredMatches.map((match, index) => (
             <motion.div
               key={match.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
             >
-              <Card className="border-gray-200 hover:shadow-lg transition-shadow duration-200">
-                <div className="p-4">
-                  <div className="flex items-start gap-4 mb-4">
-                    <div className="w-16 h-16 rounded-xl overflow-hidden">
-                      <Image
-                        src={match.image || "/placeholder.svg"}
-                        alt={match.sport}
-                        width={64}
-                        height={64}
-                        className="object-cover"
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex items-start justify-between mb-2">
-                        <div>
-                          <h3 className="font-bold text-gray-900 text-lg">{match.title}</h3>
-                          <div className="flex items-center gap-4 text-sm text-gray-600 mt-1">
-                            <div className="flex items-center gap-1">
-                              <MapPin className="w-4 h-4" />
-                              <span>{match.location}</span>
-                            </div>
-                            <div className="flex items-center gap-1">
-                              <Clock className="w-4 h-4" />
-                              <span>{match.time}</span>
-                            </div>
-                          </div>
-                        </div>
-                        <Badge
-                          className={`${
-                            match.level === "Beginner"
-                              ? "bg-green-100 text-green-800 border-green-200"
-                              : match.level === "Intermediate"
-                                ? "bg-yellow-100 text-yellow-800 border-yellow-200"
-                                : "bg-red-100 text-red-800 border-red-200"
+              <Card className="rounded-2xl overflow-hidden border-gray-200 hover:shadow-md transition-shadow duration-200">
+                <div className="grid grid-cols-2 p-4 gap-4">
+                  {/* Div 1 - Left Side: Image */}
+                  <div className="rounded-xl border border-gray-200 p-2">
+                    <Image
+                      src={match.image}
+                      alt={match.sport}
+                      width={300}
+                      height={200}
+                      className="object-cover w-full h-full rounded-lg"
+                    />
+                  </div>
+
+                  {/* Div 2 - Right Side: Slot selection */}
+                  <div className="flex flex-col justify-between">
+                    <div className="text-right text-sm font-semibold text-black mb-2">Slot Selector</div>
+                    <div className="grid grid-cols-3 gap-2">
+                      {match.slots.map((slot, index) => (
+                        <motion.div
+                          key={index}
+                          whileTap={{ scale: slot.status === "available" ? 0.95 : 1 }}
+                          onClick={() => handleSlotClick(match, index)}
+                          className={`w-full aspect-square rounded-lg flex items-center justify-center text-center text-xs ${
+                            slot.status === "available"
+                              ? "bg-[#D7EE34]/20 border border-[#D7EE34] cursor-pointer hover:bg-[#D7EE34]/30"
+                              : "bg-gray-100"
                           }`}
                         >
-                          {match.level}
-                        </Badge>
-                      </div>
-
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-4">
-                          <div className="flex items-center gap-2">
-                            <Users className="w-4 h-4 text-gray-500" />
-                            <span className="text-sm text-gray-600">{match.players}</span>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <div className="w-6 h-6 rounded-full overflow-hidden">
-                              <Image
-                                src={match.host.avatar || "/placeholder.svg"}
-                                alt={match.host.name}
-                                width={24}
-                                height={24}
-                                className="object-cover"
-                              />
+                          {slot.status === "available" ? (
+                            <UserPlus className="w-5 h-5 text-[#D7EE34]" />
+                          ) : slot.player ? (
+                            <div>
+                              <div className="font-medium">{slot.player.name}</div>
+                              <div className="text-gray-500">{slot.player.level}</div>
                             </div>
-                            <span className="text-sm text-gray-600">{match.host.name}</span>
-                          </div>
-                          {match.comments > 0 && (
-                            <div className="flex items-center gap-1">
-                              <MessageCircle className="w-4 h-4 text-gray-500" />
-                              <span className="text-sm text-gray-600">{match.comments}</span>
-                            </div>
+                          ) : (
+                            <div className="text-gray-500">Reserved</div>
                           )}
-                        </div>
-                        <div className="text-right">
-                          <div className="text-sm font-semibold text-gray-900">{match.price}</div>
-                          <Button
-                            size="sm"
-                            className={`mt-1 ${
-                              match.status === "joining"
-                                ? "bg-green-600 hover:bg-green-700 text-white"
-                                : "bg-black hover:bg-gray-800 text-white"
-                            }`}
-                          >
-                            {match.status === "joining" ? "Joined" : "Join Match"}
-                          </Button>
-                        </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Div 3 - Title and other details */}
+                <div className="px-4 pb-4">
+                  <div className="rounded-xl border border-gray-300 p-3">
+                    <div className="font-semibold text-lg mb-1 text-black">{match.title}</div>
+                    <div className="text-sm text-gray-600 space-y-1">
+                      <div className="flex items-center gap-2">
+                        <MapPin className="w-4 h-4" />
+                        <span>{match.location}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Clock className="w-4 h-4" />
+                        <span>{match.time}</span>
                       </div>
                     </div>
                   </div>
                 </div>
+
+                {/* Div 4 - Footer: Avatar, Host & Join Button */}
+                <div className="flex justify-between items-center bg-[#D7EE34] px-4 py-3 rounded-b-2xl">
+                  {/* Host Avatar and Info */}
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full overflow-hidden">
+                      <Image
+                        src={match.host.avatar}
+                        alt={match.host.name}
+                        width={40}
+                        height={40}
+                        className="object-cover w-full h-full"
+                      />
+                    </div>
+                    <div className="text-sm font-medium text-black">{match.host.name}</div>
+                  </div>
+                  {/* Join Match Button */}
+                  <Button
+                    size="sm"
+                    onClick={() => handleSlotClick(match, index)}
+                    className="bg-black hover:bg-gray-800 text-white px-4 py-2 rounded-md text-sm"
+                  >
+                    {match.status === "joining" ? "Joined" : "Join Match"}
+                  </Button>
+                </div>
               </Card>
             </motion.div>
-          ))}
+              
+         ))}
         </TabsContent>
 
         <TabsContent value="registered" className="px-6 py-6">
@@ -406,7 +589,7 @@ export default function QuickMatch() {
             </div>
             <h3 className="text-xl font-bold text-gray-900 mb-2">No Registered Matches</h3>
             <p className="text-gray-600 mb-6">Join a match to see it here</p>
-            <Button className="bg-black hover:bg-gray-800 text-white">Browse Matches</Button>
+            <Button className="bg-[#D7EE34] hover:bg-[#C6DF29] text-gray-900">Browse Matches</Button>
           </Card>
         </TabsContent>
 
@@ -424,7 +607,7 @@ export default function QuickMatch() {
                     <div className="flex items-center gap-4">
                       <div className="w-12 h-12 rounded-xl overflow-hidden">
                         <Image
-                          src={match.image || "/placeholder.svg"}
+                          src={match.image}
                           alt={match.sport}
                           width={48}
                           height={48}
@@ -432,22 +615,28 @@ export default function QuickMatch() {
                         />
                       </div>
                       <div>
-                        <h3 className="font-bold text-gray-900">{match.sport}</h3>
+                        <h3 className="font-bold text-gray-900 capitalize">{match.sport}</h3>
                         <p className="text-sm text-gray-600">vs {match.opponent}</p>
                         <p className="text-xs text-gray-500">{match.date}</p>
                       </div>
                     </div>
                     <div className="text-right">
                       <div className="text-2xl font-bold text-gray-900 mb-1">{match.score}</div>
-                      <Badge
-                        className={
-                          match.result === "won"
-                            ? "bg-green-100 text-green-800 border-green-200"
-                            : "bg-red-100 text-red-800 border-red-200"
-                        }
-                      >
-                        {match.result === "won" ? "Victory" : "Defeat"}
-                      </Badge>
+                      <div className="flex items-center justify-end gap-2">
+                        <Badge
+                          className={
+                            match.result === "won"
+                              ? "bg-green-100 text-green-800 border-green-200"
+                              : "bg-red-100 text-red-800 border-red-200"
+                          }
+                        >
+                          {match.result === "won" ? "Victory" : "Defeat"}
+                        </Badge>
+                        <div className="flex items-center text-sm text-gray-600">
+                          <Trophy className="w-4 h-4 text-yellow-500 mr-1" />
+                          {match.performance}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -456,6 +645,61 @@ export default function QuickMatch() {
           ))}
         </TabsContent>
       </Tabs>
+
+      {/* Booking Confirmation Modal */}
+      <AnimatePresence>
+        {showConfirmation && selectedMatch && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
+            onClick={() => setShowConfirmation(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              className="w-full max-w-md bg-white rounded-xl overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="p-6">
+                <div className="flex justify-center mb-4">
+                  <CheckCircle2 className="w-12 h-12 text-[#D7EE34]" />
+                </div>
+                <h3 className="text-xl font-bold text-center text-gray-900 mb-2">
+                  Match Confirmed!
+                </h3>
+                <p className="text-gray-600 text-center mb-6">
+                  You've successfully joined the {selectedMatch.title}
+                </p>
+                
+                <div className="bg-gray-50 rounded-lg p-4 mb-6">
+                  <div className="flex justify-between mb-2">
+                    <span className="text-gray-600">Date:</span>
+                    <span className="font-medium">{selectedMatch.time}</span>
+                  </div>
+                  <div className="flex justify-between mb-2">
+                    <span className="text-gray-600">Location:</span>
+                    <span className="font-medium">{selectedMatch.location}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">Price:</span>
+                    <span className="font-medium">{selectedMatch.price}</span>
+                  </div>
+                </div>
+
+                <Button 
+                  className="w-full bg-[#D7EE34] hover:bg-[#C6DF29] text-gray-900"
+                  onClick={confirmBooking}
+                >
+                  Got it!
+                </Button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }
